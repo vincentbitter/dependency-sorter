@@ -23,6 +23,11 @@ namespace DependencySorter
             _items.Add(item, dependencies.ToList());
         }
 
+        public void Remove(T item)
+        {
+            _items.Remove(item);
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             return _items.Keys.GetEnumerator();
