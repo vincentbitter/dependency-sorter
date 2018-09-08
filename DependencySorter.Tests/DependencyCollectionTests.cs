@@ -134,5 +134,32 @@ namespace DependencySorter.Tests
             CollectionAssert.Contains(list, "test");
             CollectionAssert.Contains(list, "test2");
         }
+
+        [TestMethod]
+        public void existing_item_can_be_removed()
+        {
+            var collection = new DependencyCollection<string>();
+            collection.Add("test");
+            collection.Add("test2", "test");
+            collection.Remove("test");
+
+            var list = collection.ToList();
+            Assert.AreEqual(1, list.Count);
+            CollectionAssert.Contains(list, "test2");
+        }
+
+        [TestMethod]
+        public void removing_non_existing_items_does_not_throw_exceptions()
+        {
+            var collection = new DependencyCollection<string>();
+            collection.Add("test");
+            collection.Add("test2", "test");
+            collection.Remove("test3");
+
+            var list = collection.ToList();
+            Assert.AreEqual(2, list.Count);
+            CollectionAssert.Contains(list, "test");
+            CollectionAssert.Contains(list, "test2");
+        }
     }
 }
