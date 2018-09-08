@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DependencySorter
 {
@@ -10,6 +11,16 @@ namespace DependencySorter
         public DependencyCollection()
         {
             _items = new Dictionary<T, IList<T>>();
+        }
+
+        public void Add(T item, params T[] dependencies)
+        {
+            Add(item, dependencies.ToList());
+        }
+
+        public void Add(T item, IEnumerable<T> dependencies)
+        {
+            _items.Add(item, dependencies.ToList());
         }
 
         public IEnumerator<T> GetEnumerator()
