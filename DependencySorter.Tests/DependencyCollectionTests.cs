@@ -129,10 +129,7 @@ namespace DependencySorter.Tests
             collection.Add("test", "test2");
             collection.Add("test2", "test");
 
-            var list = collection.ToList();
-            Assert.AreEqual(2, list.Count);
-            CollectionAssert.Contains(list, "test");
-            CollectionAssert.Contains(list, "test2");
+            Assert.ThrowsException<Exception>(() => collection.ToList());
         }
 
         [TestMethod]
@@ -160,6 +157,18 @@ namespace DependencySorter.Tests
             Assert.AreEqual(2, list.Count);
             CollectionAssert.Contains(list, "test");
             CollectionAssert.Contains(list, "test2");
+        }
+
+        [TestMethod]
+        public void dependencies_should_be_sorted()
+        {
+            var collection = new DependencyCollection<string>();
+            collection.Add("test2", "test");
+            collection.Add("test");
+
+            var list = collection.ToList();
+            Assert.AreEqual(2, list.Count);
+            CollectionAssert.AreEqual(list, new [] { "test" , "test2" });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +31,20 @@ namespace DependencySorter
 
         public IEnumerator<T> GetEnumerator()
         {
-            return _items.Keys.GetEnumerator();
+            var result = new List<T>();
+            while (_items.Count > result.Count)
+            {
+                var newItems = _items
+                    .Where(i => !result.Contains(i.Key)) // Not already added
+                    .Where(i => i.Value.All(d => result.Contains(d) || !_items.Keys.Contains(d))) // All dependencies already included or do not exist
+                    .Select(i => i.Key)
+                    .ToList();
+                if (!newItems.Any())
+                    throw new Exception("Invalid dependencies!");
+
+                result.AddRange(newItems);
+            }
+            return result.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
