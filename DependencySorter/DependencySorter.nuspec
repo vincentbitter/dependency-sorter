@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/vincentbitter/dependency-sorter/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/vincentbitter/dependency-sorter</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2018</copyright>
+    <tags>Dependencies Sorter Algorithm</tags>
+  </metadata>
+</package>
