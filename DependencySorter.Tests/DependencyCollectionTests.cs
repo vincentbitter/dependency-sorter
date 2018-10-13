@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -169,6 +171,23 @@ namespace DependencySorter.Tests
             var list = collection.ToList();
             Assert.AreEqual(2, list.Count);
             CollectionAssert.AreEqual(list, new [] { "test" , "test2" });
+        }
+
+        [TestMethod]
+        public void can_be_casted_to_IEnumerable()
+        {
+            var collection = new DependencyCollection<string>();
+            collection.Add("test2", "test");
+            collection.Add("test");
+
+            var enumerable = (IEnumerable) collection;
+            var list = new List<object>();
+            foreach (var value in enumerable)
+            {
+                list.Add(value);
+            }
+            Assert.AreEqual(2, list.Count);
+            CollectionAssert.AreEqual(list, new[] { "test", "test2" });
         }
     }
 }
