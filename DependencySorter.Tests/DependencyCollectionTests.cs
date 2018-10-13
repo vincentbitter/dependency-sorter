@@ -189,5 +189,19 @@ namespace DependencySorter.Tests
             Assert.AreEqual(2, list.Count);
             CollectionAssert.AreEqual(list, new[] { "test", "test2" });
         }
+
+        class ConfigurationService { }
+        class UserService { }
+
+        [TestMethod]
+        public void can_sort_types()
+        {    
+            var collection = new DependencyCollection<Type>();
+            collection.Add(typeof(UserService), typeof(ConfigurationService));
+            collection.Add(typeof(ConfigurationService));
+
+            var list = collection.ToList();
+            CollectionAssert.AreEqual(new [] { typeof(ConfigurationService), typeof(UserService) }, list);
+        }
     }
 }
